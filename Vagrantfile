@@ -6,8 +6,8 @@ Vagrant.configure("2") do |config|
     master.vm.box = "bento/centos-7.1"
     master.vm.hostname = 'master'
 
-    master.vm.network :private_network, ip: "192.168.56.101"
-    master.vm.network :forwarded_port, guest: 22, host: 10122, id: "ssh"
+    master.vm.network :private_network, ip: "192.168.56.201"
+    master.vm.network :forwarded_port, guest: 22, host: 20122, id: "ssh"
 
 
     master.vm.provider :virtualbox do |v|
@@ -46,8 +46,8 @@ Vagrant.configure("2") do |config|
     minion.vm.box = "bento/centos-7.1"
     minion.vm.hostname = 'minion'
 
-    minion.vm.network :private_network, ip: "192.168.56.102"
-    minion.vm.network :forwarded_port, guest: 22, host: 10222, id: "ssh"
+    minion.vm.network :private_network, ip: "192.168.56.202"
+    minion.vm.network :forwarded_port, guest: 22, host: 20222, id: "ssh"
 
 
     minion.vm.provider :virtualbox do |v|
