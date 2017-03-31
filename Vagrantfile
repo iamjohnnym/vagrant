@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
     end
 
     ## Use all the defaults:
-    minion.vm.provision :salt do |salt|
+    config.vm.provision :salt do |salt|
 
       salt.install_master = true
       salt.no_minion = true
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
     end
 
-    minion.vm.provision "shell", inline: <<-SHELL
+    config.vm.provision "shell", inline: <<-SHELL
       sudo yum update -y
       sudo yum groupinstall 'Development Tools'
       sudo yum install -y python-virtualenv git libffi libffi-devel python-devel gcc paramiko PyYAML Jinja2 httplib2 six openssl-devel 
@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
     end
 
     ## Use all the defaults:
-    minion.vm.provision :salt do |salt|
+    config.vm.provision :salt do |salt|
 
       salt.install_master = false
       salt.install_type = 'stable'
@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
 
     end
 
-    minion.vm.provision "shell", inline: <<-SHELL
+    config.vm.provision "shell", inline: <<-SHELL
       sudo yum update -y
       sudo yum groupinstall 'Development Tools'
       sudo yum install -y python-virtualenv git libffi libffi-devel python-devel gcc paramiko PyYAML Jinja2 httplib2 six openssl-devel 
