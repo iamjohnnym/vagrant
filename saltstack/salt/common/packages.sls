@@ -4,10 +4,12 @@ common_packages:
       - htop
       - perl
       - strace
-      - vim
+      - vim-enhanced
       - python-virtualenv
       - python-devel 
       - git
       - sysstat
-  pkg.installed:
-    - only_upgrade: True
+
+uptodate:
+  pkg.uptodate:
+    - refresh: True
