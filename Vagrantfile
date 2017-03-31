@@ -27,8 +27,8 @@ Vagrant.configure("2") do |config|
       salt.minion_key = "saltstack/keys/master_minion.pem"
       salt.minion_pub = "saltstack/keys/master_minion.pub"
       salt.seed_master = {
-                          "minion1" => "saltstack/keys/minion1.pub",
-                          "minion2" => "saltstack/keys/minion2.pub"
+                          "minion01" => "saltstack/keys/minion01.pub",
+                          "minion02" => "saltstack/keys/minion02.pub"
                          }
       salt.install_type = "stable"
       salt.install_master = true
@@ -38,19 +38,6 @@ Vagrant.configure("2") do |config|
       salt.bootstrap_options = "-P -c /tmp"
     end
 
-    config.vm.provision "shell", inline: <<-SHELL
-      sudo yum update -y
-      sudo yum groupinstall 'Development Tools'
-      sudo yum install -y python-virtualenv git libffi libffi-devel python-devel gcc paramiko PyYAML Jinja2 httplib2 six openssl-devel 
-      sudo useradd -m -G wheel -s /bin/bash dev
-      sudo perl -p -i -e "s|^%wheel|#%wheel|" ~/etc/sudoers
-      sudo perl -p -i -e "s|^# %wheel|%wheel|" ~/etc/sudoers
-      sudo -u dev -i /bin/bash -l -c 'virtualenv ~/.venv'
-      sudo -u dev -i /bin/bash -l -c 'echo "source ~/.venv/bin/activate" >> ~/.bash_profile'
-      sudo -u dev -i /bin/bash -l -c 'git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/vundle/'
-      sudo -u dev -i /bin/bash -l -c 'source ~/.venv/bin/activate'
-      sudo -u dev -i /bin/bash -l -c '/home/dev/.venv/bin/pip install ansible boto3' 
-    SHELL
   end
 
   config.vm.define :minion01 do |minion|
@@ -70,28 +57,15 @@ Vagrant.configure("2") do |config|
 
     ## Use all the defaults:
     minion.vm.provision :salt do |salt|
-      salt.minion_config = "saltstack/etc/minion1"
-      salt.minion_key = "saltstack/keys/minion1.pem"
-      salt.minion_pub = "saltstack/keys/minion1.pub"
+      salt.minion_config = "saltstack/etc/minion01"
+      salt.minion_key = "saltstack/keys/minion01.pem"
+      salt.minion_pub = "saltstack/keys/minion01.pub"
       salt.install_type = "stable"
       salt.verbose = true
       salt.colorize = true
       salt.bootstrap_options = "-P -c /tmp"
     end
 
-    config.vm.provision "shell", inline: <<-SHELL
-      sudo yum update -y
-      sudo yum groupinstall 'Development Tools'
-      sudo yum install -y python-virtualenv git libffi libffi-devel python-devel gcc paramiko PyYAML Jinja2 httplib2 six openssl-devel 
-      sudo useradd -m -G wheel -s /bin/bash dev
-      sudo perl -p -i -e "s|^%wheel|#%wheel|" ~/etc/sudoers
-      sudo perl -p -i -e "s|^# %wheel|%wheel|" ~/etc/sudoers
-      sudo -u dev -i /bin/bash -l -c 'virtualenv ~/.venv'
-      sudo -u dev -i /bin/bash -l -c 'echo "source ~/.venv/bin/activate" >> ~/.bash_profile'
-      sudo -u dev -i /bin/bash -l -c 'git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/vundle/'
-      sudo -u dev -i /bin/bash -l -c 'source ~/.venv/bin/activate'
-      sudo -u dev -i /bin/bash -l -c '/home/dev/.venv/bin/pip install ansible boto3' 
-    SHELL
   end
 
   config.vm.define :minion02 do |minion|
@@ -111,27 +85,14 @@ Vagrant.configure("2") do |config|
 
     ## Use all the defaults:
     minion.vm.provision :salt do |salt|
-      salt.minion_config = "saltstack/etc/minion2"
-      salt.minion_key = "saltstack/keys/minion1.pem"
-      salt.minion_pub = "saltstack/keys/minion1.pub"
+      salt.minion_config = "saltstack/etc/minion02"
+      salt.minion_key = "saltstack/keys/minion02.pem"
+      salt.minion_pub = "saltstack/keys/minion02.pub"
       salt.install_type = "stable"
       salt.verbose = true
       salt.colorize = true
       salt.bootstrap_options = "-P -c /tmp"
     end
 
-    config.vm.provision "shell", inline: <<-SHELL
-      sudo yum update -y
-      sudo yum groupinstall 'Development Tools'
-      sudo yum install -y python-virtualenv git libffi libffi-devel python-devel gcc paramiko PyYAML Jinja2 httplib2 six openssl-devel 
-      sudo useradd -m -G wheel -s /bin/bash dev
-      sudo perl -p -i -e "s|^%wheel|#%wheel|" ~/etc/sudoers
-      sudo perl -p -i -e "s|^# %wheel|%wheel|" ~/etc/sudoers
-      sudo -u dev -i /bin/bash -l -c 'virtualenv ~/.venv'
-      sudo -u dev -i /bin/bash -l -c 'echo "source ~/.venv/bin/activate" >> ~/.bash_profile'
-      sudo -u dev -i /bin/bash -l -c 'git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/vundle/'
-      sudo -u dev -i /bin/bash -l -c 'source ~/.venv/bin/activate'
-      sudo -u dev -i /bin/bash -l -c '/home/dev/.venv/bin/pip install ansible boto3' 
-    SHELL
   end
 end
