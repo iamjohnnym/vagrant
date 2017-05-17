@@ -1,2 +1,5 @@
+{% if salt['grains.get']('kernel', 'Unknown') == 'Windows' %}
 include:
-  - common.packages
+  - .packages
+  - .sar
+{% endif %}

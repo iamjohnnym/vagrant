@@ -1,14 +1,18 @@
 common_packages:
   pkg.installed:
     - pkgs:
-      - htop
       - perl
       - strace
-      - vim-enhanced
       - python-virtualenv
-      - python-devel 
       - git
       - sysstat
+    {% if grains['os_family'] == 'Debian' %}
+      - python-dev
+      - vim
+    {% elif grains['os_family'] == 'RedHat' %}
+      - python-devel 
+      - vim-enhanced
+    {% endif %}
 
 uptodate:
   pkg.uptodate:
